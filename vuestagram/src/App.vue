@@ -18,17 +18,21 @@
 				<label for="file" class="input-plus">+</label>
 			</ul>
 		</div>
+		<Post :postData="postData"/>
 
-		{{ postData }}
+		<!-- {{ postData }} -->
 	</div>
 </template>
 
 <script>
 import postData from './assets/postData.js'
+import Post from './components/Post.vue'
 
 export default {
 	name: 'App',
-	components: {},
+	components: {
+		Post, 
+	},
 	data() {
 		return {
 			postData: postData,
