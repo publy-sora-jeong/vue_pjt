@@ -10,7 +10,8 @@
 			<img src="./assets/logo.png" class="logo" />
 		</div>
 
-		<Container />
+		<Container :postData="postData" :step="step" />
+		<button @click="more">+더보기</button>
 
 		<div class="footer">
 			<ul class="footer-button-plus">
@@ -19,20 +20,45 @@
 			</ul>
 		</div>
 
-		{{ postData }}
+		<!-- {{ postData }} -->
+		<!-- <Post :postData="postData" /> -->
 	</div>
 </template>
 
 <script>
 import postData from './assets/postData.js'
+import Container from './components/Container'
+import axios from 'axios'
 
 export default {
 	name: 'App',
-	components: {},
+	components: {
+		Container,
+	},
 	data() {
 		return {
 			postData: postData,
+			clickCount: 0,
+			step: 0,
 		}
+	},
+	methods: {
+		more() {
+			//axios.post('URL', { name : 'kim'}).then(성공시 실행할 코드).catch(실패시 실행할 코드);
+
+			axios
+				.get(`https://codingapple1.github.io/vue/more${this.clickCount}.json`)
+				.then(result => {
+					//success
+					console.log(result.data)
+					this.postData.push(result.data)
+					this.clickCount++
+				})
+				.catch(err => {
+					//fail
+					console.log(err)
+				})
+		},
 	},
 }
 </script>
